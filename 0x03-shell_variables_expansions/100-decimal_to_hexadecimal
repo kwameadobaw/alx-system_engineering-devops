@@ -1,2 +1,2 @@
 #!/bin/bash
-echo '16o $DECIMAL p' | dc
+printf "%x \n" $DECIMAL
