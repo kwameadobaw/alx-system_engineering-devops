@@ -1,0 +1,7 @@
+# Configure ssh client so that you can connect to a server without typing a password.
+
+Host example-server
+    HostName 107.22.142.29
+    User ubuntu
+    IdentityFile ~/.ssh/school
+    PasswordAuthentication no
