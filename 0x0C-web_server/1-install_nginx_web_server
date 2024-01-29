@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # a bash script to install nginx
 
 apt-get update
