@@ -5,26 +5,15 @@ import requests
 import sys
 
 if __name__ == "__main__":
-    url = "https://jsonplaceholder.typicode.com/"
     user_id = sys.argv[1]
+    url = "https://jsonplaceholder.typicode.com/"
     user = requests.get(url + "users/{}".format(user_id)).json()
+    username = user.get("username")
     todos = requests.get(url + "todos", params={"userId": user_id}).json()
 
-    user_data = {
-        "USER_ID": user_id,
-        "tasks": []
-    }
-
-    for todo in todos:
-        user_data["tasks"].append({
-            "task": todo["title"],
-            "completed": todo["completed"],
-            "username": user["username"]
-        })
-
-    # Write data to JSON file
-    file_name = "{}.json".format(user_id)
-    with open(file_name, 'w') as json_file:
-        json.dump(user_data, json_file, indent=4)
-
-    print("Data exported to", file_name)
+    with open("{}.json".format(user_id), "w") as jsonfile:
+        json.dump({user_id: [{
+                "task": t.get("title"),
+                "completed": t.get("completed"),
+                "username": username
+            } for t in todos]}, jsonfile)
